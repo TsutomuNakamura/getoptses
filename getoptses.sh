@@ -158,9 +158,10 @@ function getoptses() {
     # Parse long options
     [[ ${#result_of_short_options[@]} -ne 0 ]]  && result_line+="${result_of_short_options[@]} "
     [[ ${#result_of_long_options[@]} -ne 0 ]]   && result_line+="${result_of_long_options[@]} "
-    [[ ${#arguments[@]} -ne 0 ]]                && result_line+="-- ${arguments[@]}"
+    result_line+="--"
+    [[ ${#arguments[@]} -ne 0 ]]                && result_line+=" ${arguments[@]}"
 
-    echo "$result_line" | sed -e 's/[[:space:]]*$//'
+    echo -n "$result_line" | sed -e 's/[[:space:]]*$//'
 }
 
 if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
