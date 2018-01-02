@@ -7,11 +7,11 @@ function main() {
     local script_dir="$(dirname "$(readlink -f "$0")")"
 
     # Is this container environment
-    [[ ! -e "/.dockerenv" ]] && {
+    if [[ ! -e "/.dockerenv" ]] && [[ "${TRAVIS}" != "true" ]]; then
         echo "ERROR: This sciprt can run only on docker environment." >&2
         echo "       If you want to run except the docker environment, specifi --no-docker-environment "
         exit 1
-    }
+    fi
 
     local dir_of_test_lib="${script_dir}/test/lib"
     [[ ! -d "${dir_of_test_lib}" ]] && mkdir -p "${dir_of_test_lib}"
