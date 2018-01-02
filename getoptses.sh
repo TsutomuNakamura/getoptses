@@ -27,6 +27,7 @@ function getoptses() {
     local optchar
     local result_line
 
+    OPTIND=1
     while getopts "$optsespec" optchar; do
         case "$optchar" in
         o )
