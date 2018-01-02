@@ -1,13 +1,13 @@
 #!/usr/bin/env bats
 load helpers "getoptses.sh"
 
-@test '#getoptses should analyze getopses -- (no arguments)' {
+@test '#getoptses should analyze getopses -- (expected "--")' {
     run getoptses --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses -- "" (an argument that length of 0)' {
+@test '#getoptses should analyze getopses -- "" (expected -- "")' {
     run getoptses -- ""
 
     [[ "$output" == "-- ''" ]]
@@ -19,10 +19,10 @@ load helpers "getoptses.sh"
     [[ "$output" == "-- '' ''" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a" -- -a (expected "-a")' {
+@test '#getoptses should analyze getopses -o "a" -- -a (expected "-a --")' {
     run getoptses -o "a" -- -a
 
-    [[ "$output" == "-a" ]]
+    [[ "$output" == "-a --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "a" -- arg1 (expected "-- arg1")' {
@@ -47,25 +47,25 @@ load helpers "getoptses.sh"
 }
 
 
-@test '#getoptses should analyze getopses -o "ab" -- (expected "")' {
+@test '#getoptses should analyze getopses -o "ab" -- (expected "--")' {
     declare -a args=()
     run getoptses -o "ab" -- "${args[@]}"
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ab" -- -a (expected "")' {
+@test '#getoptses should analyze getopses -o "ab" -- -a (expected "-a --")' {
     declare -a args=("-a")
     run getoptses -o "ab" -- "${args[@]}"
 
-    [[ "$output" == "-a" ]]
+    [[ "$output" == "-a --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ab" -- -a -b (expected "-a -b")' {
+@test '#getoptses should analyze getopses -o "ab" -- -a -b (expected "-a -b --")' {
     declare -a args=("-a" "-b")
     run getoptses -o "ab" -- "${args[@]}"
 
-    [[ "$output" == "-a -b" ]]
+    [[ "$output" == "-a -b --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "ab" -- arg1 -a -b (expected "-a -b -- arg1")' {
@@ -89,18 +89,18 @@ load helpers "getoptses.sh"
     [[ "$output" == "-a -b -- 'arg1'" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ab" -- -ab (expected "-a -b")' {
+@test '#getoptses should analyze getopses -o "ab" -- -ab (expected "-a -b --")' {
     declare -a args=("-ab")
     run getoptses -o "ab" -- "${args[@]}"
 
-    [[ "$output" == "-a -b" ]]
+    [[ "$output" == "-a -b --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ab" -- -ba (expected "-a -b")' {
+@test '#getoptses should analyze getopses -o "ab" -- -ba (expected "-a -b --")' {
     declare -a args=("-ba")
     run getoptses -o "ab" -- "${args[@]}"
 
-    [[ "$output" == "-b -a" ]]
+    [[ "$output" == "-b -a --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "ab" -- -ba arg1 (expected "-a -b -- arg1")' {
@@ -117,39 +117,39 @@ load helpers "getoptses.sh"
     [[ "$output" == "-b -a -- 'arg1'" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ba" -- -a -b (expected "-a -b")' {
+@test '#getoptses should analyze getopses -o "ba" -- -a -b (expected "-a -b --")' {
     declare -a args=("-a" "-b")
     run getoptses -o "ba" -- "${args[@]}"
 
-    [[ "$output" == "-a -b" ]]
+    [[ "$output" == "-a -b --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ba" -- -ab (expected "-a -b")' {
+@test '#getoptses should analyze getopses -o "ba" -- -ab (expected "-a -b --")' {
     declare -a args=("-ab")
     run getoptses -o "ba" -- "${args[@]}"
 
-    [[ "$output" == "-a -b" ]]
+    [[ "$output" == "-a -b --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ba" -- -ba (expected "-b -a")' {
+@test '#getoptses should analyze getopses -o "ba" -- -ba (expected "-b -a --")' {
     declare -a args=("-ba")
     run getoptses -o "ba" -- "${args[@]}"
 
-    [[ "$output" == "-b -a" ]]
+    [[ "$output" == "-b -a --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a:" -- (expected "")' {
+@test '#getoptses should analyze getopses -o "a:" -- (expected "--")' {
     declare -a args=("")
     run getoptses -o "a:" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a:" -- -a val_a (expected "-a val_a")' {
+@test '#getoptses should analyze getopses -o "a:" -- -a val_a (expected "-a val_a --")' {
     declare -a args=("-a" "val_a")
     run getoptses -o "a:" -- "${args[@]}"
 
-    [[ "$output" == "-a 'val_a'" ]]
+    [[ "$output" == "-a 'val_a' --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "a:" -- arg1 -a val_a (expected "-a val_a -- arg1")' {
@@ -167,52 +167,52 @@ load helpers "getoptses.sh"
 }
 
 
-@test '#getoptses should analyze getopses -o "a:b:" --  (expected "")' {
+@test '#getoptses should analyze getopses -o "a:b:" --  (expected "--")' {
     run getoptses -o "a:b:" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a -b val_b (expected "-a val_a -b val_b")' {
+@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a -b val_b (expected "-a val_a -b val_b --")' {
     declare -a args=("-a" "val_a" "-b" "val_b")
     run getoptses -o "a:b:" -- "${args[@]}"
 
-    [[ "$output" == "-a 'val_a' -b 'val_b'" ]]
+    [[ "$output" == "-a 'val_a' -b 'val_b' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a (expected "-a val_a")' {
+@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a (expected "-a val_a --")' {
     declare -a args=("-a" "val_a")
     run getoptses -o "a:b:" -- "${args[@]}"
 
-    [[ "$output" == "-a 'val_a'" ]]
+    [[ "$output" == "-a 'val_a' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a (expected "-b val_b")' {
+@test '#getoptses should analyze getopses -o "a:b:" -- -a val_a (expected "-b val_b --")' {
     declare -a args=("-a" "val_a")
     run getoptses -o "a:b:" -- "${args[@]}"
 
-    [[ "$output" == "-a 'val_a'" ]]
+    [[ "$output" == "-a 'val_a' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "b:a:" -- -b val_b -a val_a (expected "-b val_b -a val_a")' {
+@test '#getoptses should analyze getopses -o "b:a:" -- -b val_b -a val_a (expected "-b val_b -a val_a --")' {
     declare -a args=("-b" "val_b" "-a" "val_a")
     run getoptses -o "b:a:" -- "${args[@]}"
 
-    [[ "$output" == "-b 'val_b' -a 'val_a'" ]]
+    [[ "$output" == "-b 'val_b' -a 'val_a' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "b:a:" -- -a val_a (expected "-a val_a")' {
+@test '#getoptses should analyze getopses -o "b:a:" -- -a val_a (expected "-a val_a --")' {
     declare -a args=("-a" "val_a")
     run getoptses -o "b:a:" -- "${args[@]}"
 
-    [[ "$output" == "-a 'val_a'" ]]
+    [[ "$output" == "-a 'val_a' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "b:a:" -- -b val_b (expected "-b val_b")' {
+@test '#getoptses should analyze getopses -o "b:a:" -- -b val_b (expected "-b val_b --")' {
     declare -a args=("-b" "val_b")
     run getoptses -o "b:a:" -- "${args[@]}"
 
-    [[ "$output" == "-b 'val_b'" ]]
+    [[ "$output" == "-b 'val_b' --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "a:b:" -- -a val_a -b val_b arg1 (expected "-a val_a -b val_b -- arg1")' {
@@ -257,20 +257,20 @@ load helpers "getoptses.sh"
     [[ "$output" == "-b 'val_b' -a 'val_a' -- 'arg1'" ]]
 }
 
-# option that has no value and option that has a value
+## option that has no value and option that has a value
 
-@test '#getoptses should analyze getopses -o "ab:" -- -a -b val_b (expected "-a -b val_b")' {
+@test '#getoptses should analyze getopses -o "ab:" -- -a -b val_b (expected "-a -b val_b --")' {
     declare -a args=("-a" "-b" "val_b")
     run getoptses -o "ab:" -- "${args[@]}"
 
-    [[ "$output" == "-a -b 'val_b'" ]]
+    [[ "$output" == "-a -b 'val_b' --" ]]
 }
 
-@test '#getoptses should analyze getopses -o "ab:" -- -b val_b -a (expected "-a -b val_b")' {
+@test '#getoptses should analyze getopses -o "ab:" -- -b val_b -a (expected "-a -b val_b --")' {
     declare -a args=("-b" "val_b" "-a")
     run getoptses -o "ab:" -- "${args[@]}"
 
-    [[ "$output" == "-b 'val_b' -a" ]]
+    [[ "$output" == "-b 'val_b' -a --" ]]
 }
 
 @test '#getoptses should analyze getopses -o "ab:" -- -a -b val_b arg1 (expected "-a -b val_b -- arg1")' {
@@ -294,19 +294,19 @@ load helpers "getoptses.sh"
     [[ "$output" == "-a -b 'val_b' -- 'arg1'" ]]
 }
 
-# long options -------------------------------------------------
+## long options -------------------------------------------------
 
-@test '#getoptses should analyze getopses --longoptions "long-a" -- (expected "")' {
+@test '#getoptses should analyze getopses --longoptions "long-a" -- (expected "--")' {
     run getoptses --longoptions "long-a" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a" -- --long-a (expected "--long-a")' {
+@test '#getoptses should analyze getopses --longoptions "long-a" -- --long-a (expected "--long-a --")' {
     declare -a args=("--long-a")
     run getoptses --longoptions "long-a" -- "${args[@]}"
 
-    [[ "$output" == "--long-a" ]]
+    [[ "$output" == "--long-a --" ]]
 }
 
 @test '#getoptses should analyze getopses --longoptions "long-a" -- arg1 (expected "-- arg1")' {
@@ -330,17 +330,17 @@ load helpers "getoptses.sh"
     [[ "$output" == "--long-a -- 'arg1'" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a:" -- (expected "")' {
+@test '#getoptses should analyze getopses --longoptions "long-a:" -- (expected "--")' {
     run getoptses --longoptions "long-a:" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a:" -- --long-a val_a (expected "--long-a val_a")' {
+@test '#getoptses should analyze getopses --longoptions "long-a:" -- --long-a val_a (expected "--long-a val_a --")' {
     declare -a args=("--long-a" "val_a")
     run getoptses --longoptions "long-a:" -- "${args[@]}"
 
-    [[ "$output" == "--long-a 'val_a'" ]]
+    [[ "$output" == "--long-a 'val_a' --" ]]
 }
 
 @test '#getoptses should analyze getopses --longoptions "long-a:" -- --long-a val_a arg1 (expected "--long-a val_a -- arg1")' {
@@ -357,48 +357,48 @@ load helpers "getoptses.sh"
     [[ "$output" == "--long-a 'val_a' -- 'arg1'" ]]
 }
 
-# double long option tha has no value
+## double long option tha has no value
 
-@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- (expected "--long-a --long-b")' {
+@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- (expected "--long-a --long-b --")' {
     run getoptses --longoptions "long-a,long-b" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-a (expected "--long-a")' {
+@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-a (expected "--long-a --")' {
     declare -a args=("--long-a")
     run getoptses --longoptions "long-a,long-b" -- "${args[@]}"
 
-    [[ "$output" == "--long-a" ]]
+    [[ "$output" == "--long-a --" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-b (expected "--long-b")' {
+@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-b (expected "--long-b --")' {
     declare -a args=("--long-b")
     run getoptses --longoptions "long-a,long-b" -- "${args[@]}"
 
-    [[ "$output" == "--long-b" ]]
+    [[ "$output" == "--long-b --" ]]
 }
 
 
-@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-a --long-b (expected "--long-a --long-b")' {
+@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-a --long-b (expected "--long-a --long-b --")' {
     declare -a args=("--long-a" "--long-b")
     run getoptses --longoptions "long-a,long-b" -- "${args[@]}"
 
-    [[ "$output" == "--long-a --long-b" ]]
+    [[ "$output" == "--long-a --long-b --" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-b,long-a" -- --long-a --long-b (expected "--long-a --long-b")' {
+@test '#getoptses should analyze getopses --longoptions "long-b,long-a" -- --long-a --long-b (expected "--long-a --long-b --")' {
     declare -a args=("--long-a" "--long-b")
     run getoptses --longoptions "long-b,long-a" -- "${args[@]}"
 
-    [[ "$output" == "--long-a --long-b" ]]
+    [[ "$output" == "--long-a --long-b --" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-b --long-a (expected "--long-b --long-a")' {
+@test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-b --long-a (expected "--long-b --long-a --")' {
     declare -a args=("--long-b" "--long-a")
     run getoptses --longoptions "long-a,long-b" -- "${args[@]}"
 
-    [[ "$output" == "--long-b --long-a" ]]
+    [[ "$output" == "--long-b --long-a --" ]]
 }
 
 @test '#getoptses should analyze getopses --longoptions "long-a,long-b" -- --long-a --long-b arg1 (expected "--long-a --long-b -- arg1")' {
@@ -443,33 +443,33 @@ load helpers "getoptses.sh"
     [[ "$output" == "--long-a --long-b -- 'arg1'" ]]
 }
 
-# long options that has values -------------------------------------------------
+## long options that has values -------------------------------------------------
 
-@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- (expected "")' {
+@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- (expected "--")' {
     run getoptses --longoptions "long-b,long-a" --
 
-    [[ "$output" == "" ]]
+    [[ "$output" == "--" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b")' {
+@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b --")' {
     declare -a args=("--long-a" "val_a" "--long-b" "val_b")
     run getoptses --longoptions "long-a:,long-b:" -- "${args[@]}"
 
-    [[ "$output" == "--long-a 'val_a' --long-b 'val_b'" ]]
+    [[ "$output" == "--long-a 'val_a' --long-b 'val_b' --" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-b:,long-a:" -- --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b")' {
+@test '#getoptses should analyze getopses --longoptions "long-b:,long-a:" -- --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b --")' {
     declare -a args=("--long-a" "val_a" "--long-b" "val_b")
     run getoptses --longoptions "long-b:,long-a:" -- "${args[@]}"
 
-    [[ "$output" == "--long-a 'val_a' --long-b 'val_b'" ]]
+    [[ "$output" == "--long-a 'val_a' --long-b 'val_b' --" ]]
 }
 
-@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- --long-b val_b --long-a val_a (expected "--long-b val_b --long-a val_a")' {
+@test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- --long-b val_b --long-a val_a (expected "--long-b val_b --long-a val_a --")' {
     declare -a args=("--long-b" "val_b" "--long-a" "val_a")
     run getoptses --longoptions "long-a:,long-b:" -- "${args[@]}"
 
-    [[ "$output" == "--long-b 'val_b' --long-a 'val_a'" ]]
+    [[ "$output" == "--long-b 'val_b' --long-a 'val_a' --" ]]
 }
 
 @test '#getoptses should analyze getopses --longoptions "long-a:,long-b:" -- --long-a val_a --long-b val_b arg1 (expected "--long-a val_a --long-b val_b -- arg1")' {
