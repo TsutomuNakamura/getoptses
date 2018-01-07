@@ -24,7 +24,7 @@ You can use getoptses that has "-o|--option", "-l|--longoptions" like getopt(GNU
 #!/bin/bash
 
 function main() {
-    /path/to/getoptses/getoptses.sh"
+    . /path/to/getoptses/getoptses.sh
 
     local options
     options=$(getoptses -o "ab:" --longoptions "long-a,long-b:,lonb-c" -- "$@")
