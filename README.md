@@ -11,6 +11,12 @@ $ git clone https://github.com/TsutomuNakamura/getoptses.git
 $ cp getoptses/getoptses.sh /path/to/getoptses/
 $ . /path/to/getoptses/getoptses.sh
 ```
+
+Or you can load it directly.
+```bash
+$ . <(curl -o- https://raw.githubusercontent.com/TsutomuNakamura/getoptses/master/getoptses.sh 2> /dev/null)
+```
+
 # Examples
 You can use getoptses that has "-o|--option", "-l|--longoptions" like getopt(GNU/Linux) after load getoptses.sh.
 
