@@ -521,3 +521,21 @@ load helpers "getoptses.sh"
     [[ "$output" == "--long-b 'val_b' -- 'arg1'" ]]
 }
 
+# Other long options ----------------------------------------------------------------------
+@test '#getoptses should analyze getopses -l "long-a:,long-b:" -- arg1 --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b -- arg1")' {
+    declare -a args=("arg1" "--long-a" "val_a" "--long-b" "val_b")
+    run getoptses -l "long-a:,long-b:" -- "${args[@]}"
+
+    echo "$outputs"
+    [[ "$output" == "--long-a 'val_a' --long-b 'val_b' -- 'arg1'" ]]
+}
+
+@test '#getoptses should analyze getopses --long "long-a:,long-b:" -- arg1 --long-a val_a --long-b val_b (expected "--long-a val_a --long-b val_b -- arg1")' {
+    declare -a args=("arg1" "--long-a" "val_a" "--long-b" "val_b")
+    run getoptses --long "long-a:,long-b:" -- "${args[@]}"
+
+    echo "$outputs"
+    [[ "$output" == "--long-a 'val_a' --long-b 'val_b' -- 'arg1'" ]]
+}
+
+

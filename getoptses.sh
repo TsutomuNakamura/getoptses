@@ -11,7 +11,7 @@ function main() {
 }
 
 function getoptses() {
-    local optsespec=":o:-:"
+    local optsespec=":o:l:-:"
     local val_of_options
     local val_of_long_options
     declare -A elements_of_short_options
@@ -35,7 +35,7 @@ function getoptses() {
             OPTARG="options"
             ;;&
         l )
-            val_of_long_options=(${OPTARG})
+            val_of_long_options=(${OPTARG//,/ })
             OPTARG="longoptions"
             ;;&
         h )
