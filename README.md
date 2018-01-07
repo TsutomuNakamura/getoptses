@@ -14,7 +14,7 @@ $ . /path/to/getoptses/getoptses.sh
 
 Or you can load it directly.
 ```bash
-$ . <(curl -o- https://raw.githubusercontent.com/TsutomuNakamura/getoptses/master/getoptses.sh 2> /dev/null)
+$ . <(curl -Sso- https://raw.githubusercontent.com/TsutomuNakamura/getoptses/master/getoptses.sh)
 ```
 
 # Examples
