@@ -6,16 +6,15 @@ Of course, it can use only in bash because of getopts is bash builtin.
 # Usage
 Clone this repository and copy getoptses.sh in your arbitrary location as needed then load it in your session.
 
-```
+```bash
 $ git clone https://github.com/TsutomuNakamura/getoptses.git
 $ cp getoptses/getoptses.sh /path/to/getoptses/
 $ . /path/to/getoptses/getoptses.sh
--> then you can use getoptses command
 ```
 # Examples
 You can use getoptses that has "-o|--option", "-l|--longoptions" like getopt(GNU/Linux) after load getoptses.sh.
 
-```
+```shell-script
 #!/bin/bash
 
 function main() {
