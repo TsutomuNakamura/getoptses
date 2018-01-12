@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 URL_OF_BATS="https://github.com/sstephenson/bats.git"
 URL_OF_STUBSH="https://github.com/TsutomuNakamura/stub4bats.sh"
 
 function main() {
-    local script_dir="$(dirname "$(readlink -f "$0")")"
+    local script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
     # Is this container environment
     if [[ ! -e "/.dockerenv" ]] && [[ "${TRAVIS}" != "true" ]]; then
