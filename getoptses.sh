@@ -1,16 +1,12 @@
-#!/bin/bash
-OPTSPEC="HdC:-:"
 
 # Options of main-command
 #   command [-H|--help] [-d] [--version] [-C <path>|--workdir <path>]
 # Options of sub-command
 #   command-subcommand [-H|--help] [-i] [--list] [-F <path>|--file <path>]
 
-function main() {
-    true
-}
-
 function getoptses() {
+    local optspec="HdC:-:"
+
     local optsespec=":o:l:-:"
     local val_of_options
     local val_of_long_options
@@ -82,12 +78,12 @@ function getoptses() {
                 break
                 ;;
             * )
-                [[ "$OPTERR" == "1" ]] || [[ "${OPTSPEC:0:1}" == ":" ]] \
+                [[ "$OPTERR" == "1" ]] || [[ "${optspec:0:1}" == ":" ]] \
                         && echo "Unknown long option of main command" >&2 && return 1
             esac
             ;;
         ? )
-            [[ "$OPTERR" == "1" ]] || [[ "${OPTSPEC:0:1}" == ":" ]] \
+            [[ "$OPTERR" == "1" ]] || [[ "${optspec:0:1}" == ":" ]] \
                     && echo "Unknown short option of main command" >&2 && return 1
             ;;
         esac
@@ -164,8 +160,4 @@ function getoptses() {
 
     echo -n "$result_line" | sed -e 's/[[:space:]]*$//'
 }
-
-if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
-    main "$@"
-fi
 
