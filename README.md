@@ -1,4 +1,8 @@
 # getoptses
+[![Build Status](https://travis-ci.org/TsutomuNakamura/getoptses.svg?branch=master)](https://travis-ci.org/TsutomuNakamura/getoptses) 
+[![GitHub license](https://img.shields.io/github/license/TsutomuNakamura/getoptses.svg)](https://github.com/TsutomuNakamura/getoptses) 
+[![Lang](https://img.shields.io/badge/bash-4%20or%20more-blue.svg)](https://github.com/TsutomuNakamura/getoptses)
+
 getoptses is a getopt(GNU/Linux) limited implementation by using getopts(bash builtin).
 It implements only frequently used options such as "-o|--option", "-l|--longoptions" in getopt and enabling parsing options with usability of getopt.
 Of course, it can use only in bash because of getopts is bash builtin.
